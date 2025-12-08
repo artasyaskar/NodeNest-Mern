@@ -4,20 +4,9 @@ const app = require('../server/index');
 const User = require('../server/models/User');
 
 describe('Authentication Endpoints', () => {
-  beforeAll(async () => {
-    // Connect to test database
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nodenest_test';
-    await mongoose.connect(mongoURI);
-  });
-
   beforeEach(async () => {
     // Clean up database before each test
     await User.deleteMany({});
-  });
-
-  afterAll(async () => {
-    // Close database connection
-    await mongoose.connection.close();
   });
 
   describe('POST /api/auth/register', () => {

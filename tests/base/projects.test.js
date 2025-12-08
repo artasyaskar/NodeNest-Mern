@@ -8,11 +8,6 @@ describe('Projects Base Tests', () => {
   let token;
   let user;
 
-  beforeAll(async () => {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nodenest_test';
-    await mongoose.connect(mongoURI);
-  });
-
   beforeEach(async () => {
     await User.deleteMany({});
     await Project.deleteMany({});
@@ -34,10 +29,6 @@ describe('Projects Base Tests', () => {
       });
 
     token = loginResponse.body.token;
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
   });
 
   it('should create a new project successfully', async () => {

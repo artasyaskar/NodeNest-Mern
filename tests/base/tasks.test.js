@@ -10,11 +10,6 @@ describe('Tasks Base Tests', () => {
   let user;
   let project;
 
-  beforeAll(async () => {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nodenest_test';
-    await mongoose.connect(mongoURI);
-  });
-
   beforeEach(async () => {
     await User.deleteMany({});
     await Project.deleteMany({});
@@ -45,10 +40,6 @@ describe('Tasks Base Tests', () => {
       members: [{ user: user._id, role: 'project_manager' }]
     });
     await project.save();
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
   });
 
   it('should create a new task successfully', async () => {

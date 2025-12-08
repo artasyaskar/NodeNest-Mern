@@ -9,6 +9,21 @@ process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/
 // Increase timeout for database operations
 jest.setTimeout(10000);
 
+// Global MongoDB connection setup
+beforeAll(async () => {
+  // Connect to test database
+  await mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+});
+
+// Global cleanup
+afterAll(async () => {
+  // Close MongoDB connection
+  await mongoose.connection.close();
+});
+
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);

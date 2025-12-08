@@ -4,17 +4,8 @@ const app = require('../../server/index');
 const User = require('../../server/models/User');
 
 describe('Authentication Base Tests', () => {
-  beforeAll(async () => {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nodenest_test';
-    await mongoose.connect(mongoURI);
-  });
-
   beforeEach(async () => {
     await User.deleteMany({});
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
   });
 
   it('should register a new user successfully', async () => {
