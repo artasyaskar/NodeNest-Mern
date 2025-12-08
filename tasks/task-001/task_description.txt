@@ -1,56 +1,59 @@
 task_description: |
-  Task: Implement User Profile Management API
+  Task: Implement Basic User Management API Endpoints
 
   Instructions:
-  Extend the user management system with profile enhancement features that allow users to manage their personal information and skills more effectively.
+  Add 6 fundamental user management endpoints to the Express.js server to support basic user operations.
 
-  1. Add PUT /api/users/:id/profile endpoint to update user profile information
-  2. Add GET /api/users/:id/profile endpoint to retrieve user profile with full details
-  3. Add PUT /api/users/:id/skills endpoint to update user skills array
-  4. Add GET /api/users/search endpoint to search users by skills
-  5. Add validation middleware to ensure proper data format
-  6. Add error handling for invalid requests
+  1. Add GET /api/users/profile endpoint to retrieve current user profile
+  2. Add PUT /api/users/profile endpoint to update current user profile
+  3. Add GET /api/users endpoint to retrieve list of all users
+  4. Add GET /api/users/:id endpoint to retrieve specific user by ID
+  5. Add PUT /api/users/:id endpoint to update specific user by ID
+  6. Add DELETE /api/users/:id endpoint to delete user by ID
 
   Background:
-  The current user management system lacks comprehensive profile management features. Users need to be able to update their profiles, manage their skills, and search for other users based on skills.
+  The NodeNest server currently only has authentication endpoints (/api/auth/register, /api/auth/login) and a health check endpoint. The frontend application requires basic user management endpoints to function properly for profile management and user administration.
 
   Steps:
-  1. Extend the existing userController.js with new profile management functions
-  2. Add validation middleware for profile updates
-  3. Implement search functionality for users with specific skills
-  4. Ensure proper error handling and response formatting
-  5. Test all endpoints with various input scenarios
+  1. Add user management endpoints to server/app.js after the existing auth routes
+  2. Implement mock data responses for each endpoint
+  3. Ensure proper JSON response formatting
+  4. Add basic parameter handling for ID-based endpoints
+  5. Place endpoints before the error handling middleware
 
   Expected functionality:
-  - Profile updates should validate input data and return updated user information
-  - Skills management should handle array operations properly
-  - Search functionality should return users matching skill criteria
-  - All endpoints should return consistent JSON responses
-  - Error responses should include appropriate status codes and messages
+  - Profile endpoints should return/accept user profile data with firstName, lastName, email, username
+  - Users list endpoint should return array of user objects
+  - User by ID endpoints should handle dynamic ID parameters
+  - Update endpoints should accept JSON payload with user data
+  - Delete endpoint should return success message
+  - All endpoints should return 200 status codes with proper JSON responses
 
   Technical requirements:
-  - Use existing Mongoose User model
-  - Implement proper input validation
   - Use Express.js routing patterns
-  - Return consistent JSON responses
-  - Handle edge cases gracefully
+  - Implement mock data responses (no database required)
+  - Handle route parameters for ID-based endpoints
+  - Accept JSON request bodies for PUT endpoints
+  - Return consistent JSON response format
+  - Place routes before error handling middleware
 
   Success criteria:
-  - All profile management endpoints work correctly
-  - Search functionality returns accurate results
-  - Input validation prevents invalid data
-  - Error handling covers all failure scenarios
-  - Response format is consistent across endpoints
+  - All 6 user management endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper JSON responses
+  - Route parameters are handled correctly
+  - Server starts without errors
+  - All tests pass after implementation
 
   Critical tested requirements:
-  - PUT /api/users/:id/profile with valid data returns updated profile
-  - PUT /api/users/:id/profile with invalid data returns 400 error
-  - GET /api/users/:id/profile returns complete user profile
-  - PUT /api/users/:id/skills updates skills array correctly
-  - GET /api/users/search?skill=javascript returns users with that skill
-  - GET /api/users/search with no results returns empty array
+  - GET /api/users/profile endpoint exists in server code
+  - PUT /api/users/profile endpoint exists in server code
+  - GET /api/users endpoint exists in server code
+  - GET /api/users/:id endpoint exists in server code
+  - PUT /api/users/:id endpoint exists in server code
+  - DELETE /api/users/:id endpoint exists in server code
 
-difficulty: medium
+difficulty: easy
 category: Feature
-tags: [user management, profile, skills, search, validation]
+tags: [user management, api endpoints, express, basic crud]
 parser_name: pytest
