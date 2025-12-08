@@ -1,0 +1,56 @@
+task_description: |
+  Task: Implement User Profile Management API
+
+  Instructions:
+  Extend the user management system with profile enhancement features that allow users to manage their personal information and skills more effectively.
+
+  1. Add PUT /api/users/:id/profile endpoint to update user profile information
+  2. Add GET /api/users/:id/profile endpoint to retrieve user profile with full details
+  3. Add PUT /api/users/:id/skills endpoint to update user skills array
+  4. Add GET /api/users/search endpoint to search users by skills
+  5. Add validation middleware to ensure proper data format
+  6. Add error handling for invalid requests
+
+  Background:
+  The current user management system lacks comprehensive profile management features. Users need to be able to update their profiles, manage their skills, and search for other users based on skills.
+
+  Steps:
+  1. Extend the existing userController.js with new profile management functions
+  2. Add validation middleware for profile updates
+  3. Implement search functionality for users with specific skills
+  4. Ensure proper error handling and response formatting
+  5. Test all endpoints with various input scenarios
+
+  Expected functionality:
+  - Profile updates should validate input data and return updated user information
+  - Skills management should handle array operations properly
+  - Search functionality should return users matching skill criteria
+  - All endpoints should return consistent JSON responses
+  - Error responses should include appropriate status codes and messages
+
+  Technical requirements:
+  - Use existing Mongoose User model
+  - Implement proper input validation
+  - Use Express.js routing patterns
+  - Return consistent JSON responses
+  - Handle edge cases gracefully
+
+  Success criteria:
+  - All profile management endpoints work correctly
+  - Search functionality returns accurate results
+  - Input validation prevents invalid data
+  - Error handling covers all failure scenarios
+  - Response format is consistent across endpoints
+
+  Critical tested requirements:
+  - PUT /api/users/:id/profile with valid data returns updated profile
+  - PUT /api/users/:id/profile with invalid data returns 400 error
+  - GET /api/users/:id/profile returns complete user profile
+  - PUT /api/users/:id/skills updates skills array correctly
+  - GET /api/users/search?skill=javascript returns users with that skill
+  - GET /api/users/search with no results returns empty array
+
+difficulty: medium
+category: Feature
+tags: [user management, profile, skills, search, validation]
+parser_name: pytest

@@ -39,12 +39,12 @@ else
         MATCHES=$((MATCHES+1))
       fi
     done
-    if [ "$MATCHES" = "1" ]; then
+    if [ "$MATCHES" = 1 ]; then
       DIFF_FILE="$BEST"
     else
       # If exactly one candidate exists, use it
       set -- $CANDIDATES
-      if [ "$#" = "1" ]; then
+      if [ "$#" = 1 ]; then
         DIFF_FILE="$1"
       fi
     fi
@@ -55,14 +55,14 @@ else
   # Detect if targeted source files already modified (scope only to 3 files)
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     COMMITS=$(git rev-list --count HEAD 2>/dev/null || echo 0)
-    if git diff --name-only -- server/controllers/authController.js server/controllers/projectController.js server/controllers/taskController.js | grep -q "."; then
+    if git diff --name-only -- server/models/DataStructure.js server/models/Algorithm.js server/routes/compiler.js | grep -q "."; then
       PRECHANGES=1
     fi
   fi
 
   # Determine if advanced endpoints already implemented
   ENDPOINTS_PRESENT=0
-  if grep -q "createTask\|updateTask" server/controllers/taskController.js 2>/dev/null && grep -q "createProject\|updateProject" server/controllers/projectController.js 2>/dev/null; then
+  if grep -q "/api/compiler/compile" server/routes/compiler.js 2>/dev/null && grep -q "/api/datastructures" server/routes/datastructures.js 2>/dev/null; then
     ENDPOINTS_PRESENT=1
   fi
 
@@ -120,7 +120,7 @@ else
   fi
 
   # If endpoints still missing and diff not applied, fail only for null path (single commit, no prechanges)
-  if [ "$APPLIED" -eq 0 ] && ! grep -q "createTask\|updateTask" server/controllers/taskController.js 2>/dev/null; then
+  if [ "$APPLIED" -eq 0 ] && ! grep -q "/api/compiler/compile" server/routes/compiler.js 2>/dev/null; then
     if [ "$COMMITS" -le 1 ] && [ "$PRECHANGES" -eq 0 ]; then
       echo "Task features not present and no diff applied (null path). Aborting." 1>&2
       echo "Hint: ensure tasks/${TASK_ID}/task_diff.txt exists and matches repository baseline." 1>&2
