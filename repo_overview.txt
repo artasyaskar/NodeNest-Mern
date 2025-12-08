@@ -1,0 +1,83 @@
+NodeNest MERN Stack Project Overview
+=====================================
+
+Project Description:
+NodeNest is a comprehensive full-stack web application built with the MERN stack (MongoDB, Express.js, React, Node.js) designed for project management and team collaboration. This platform provides a robust foundation for managing projects, tasks, and team members in an efficient and scalable manner.
+
+Architecture:
+- Frontend: React 18 with modern hooks, React Router for navigation, React Query for data fetching
+- Backend: Node.js with Express.js, RESTful API design
+- Database: MongoDB with Mongoose ODM for data modeling
+- Authentication: JWT-based authentication with bcrypt for password hashing
+- Styling: Tailwind CSS for modern, responsive UI design
+- State Management: React Context API for authentication, React Query for server state
+- Development Tools: Hot reload with nodemon and react-scripts
+
+Key Features:
+1. User Management
+   - User registration and authentication
+   - Profile management with skills and bio
+   - Role-based access control (user, admin, project_manager)
+
+2. Project Management
+   - Create and manage projects
+   - Add/remove team members with roles
+   - Project status tracking (planning, in_progress, on_hold, completed, cancelled)
+   - Priority levels and progress tracking
+   - Technology stack and tags for categorization
+
+3. Task Management
+   - Create tasks within projects
+   - Assign tasks to team members
+   - Task status tracking (todo, in_progress, review, completed, cancelled)
+   - Priority levels and time tracking
+   - Comments and attachments support
+   - Task dependencies
+
+4. Dashboard Analytics
+   - Project and task statistics
+   - Personal task overview
+   - Recent activity tracking
+
+Technical Implementation:
+- RESTful API with proper HTTP status codes
+- Input validation and sanitization
+- Error handling and logging
+- Rate limiting and security headers
+- Responsive design for mobile and desktop
+- Component-based architecture
+- Custom hooks for reusable logic
+
+Database Schema:
+- Users: Authentication, profile information, skills
+- Projects: Project details, members, status, metadata
+- Tasks: Task details, assignments, comments, dependencies
+
+Security Features:
+- JWT token-based authentication
+- Password hashing with bcrypt
+- Input validation and sanitization
+- Rate limiting to prevent abuse
+- CORS configuration
+- Security headers with Helmet
+
+Development Setup:
+- Docker support with multi-stage builds
+- Environment-based configuration
+- Hot reload for development
+- Production-ready build process
+- Comprehensive error handling
+
+Testing Framework:
+- Jest for unit and integration tests
+- Supertest for API testing
+- React Testing Library for component tests
+- Test scripts for automated execution
+
+This project serves as an ideal foundation for LLM training tasks, providing:
+- Complex codebase with 15+ core files
+- Multiple interconnected systems
+- Real-world business logic
+- Scalable architecture patterns
+- Comprehensive testing capabilities
+- Docker containerization for consistent environments

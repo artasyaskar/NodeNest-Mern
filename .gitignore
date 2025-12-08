@@ -1,0 +1,122 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production builds
+/client/build
+/server/dist
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# MongoDB
+mongo_data/
+
+# Test files
+test-results/
+playwright-report/
+
+node_modules/
+coverage/
+.nyc_output/
+.DS_Store
+.env
+tasks/task-001/__pycache__
+tasks/task-002/__pycache__
+tasks/task-003/__pycache__
+tasks/task-004/__pycache__
+tasks/task-005/__pycache__
+tasks/task-006/__pycache__
+tasks/task-007/__pycache__
+tasks/task-008/__pycache__
+tasks/task-009/__pycache__
+tasks/task-010/__pycache__
