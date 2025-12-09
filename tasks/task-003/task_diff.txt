@@ -1,0 +1,109 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..4185e41 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,104 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+ 
++// Task management endpoints
++app.post('/api/tasks', (req, res) => {
++  const { title, description, projectId, status } = req.body;
++  
++  // Simple validation
++  if (!title) {
++    return res.status(400).json({ message: 'Task title is required' });
++  }
++  
++  // Mock successful task creation
++  res.status(201).json({
++    task: {
++      id: '1',
++      title,
++      description: description || '',
++      projectId: projectId || null,
++      status: status || 'todo',
++      createdAt: new Date().toISOString(),
++      updatedAt: new Date().toISOString()
++    }
++  });
++});
++
++app.get('/api/tasks', (req, res) => {
++  // Mock tasks list
++  res.json([
++    {
++      id: '1',
++      title: 'Sample Task',
++      description: 'A sample task for testing',
++      projectId: '1',
++      status: 'todo',
++      createdAt: new Date().toISOString(),
++      updatedAt: new Date().toISOString()
++    }
++  ]);
++});
++
++app.get('/api/tasks/:id', (req, res) => {
++  const { id } = req.params;
++  
++  // Mock task by ID
++  res.json({
++    task: {
++      id,
++      title: 'Sample Task',
++      description: 'A sample task for testing',
++      projectId: '1',
++      status: 'todo',
++      createdAt: new Date().toISOString(),
++      updatedAt: new Date().toISOString()
++    }
++  });
++});
++
++app.put('/api/tasks/:id', (req, res) => {
++  const { id } = req.params;
++  const { title, description, projectId, status } = req.body;
++  
++  // Mock task update
++  res.json({
++    task: {
++      id,
++      title: title || 'Sample Task',
++      description: description || 'A sample task for testing',
++      projectId: projectId || '1',
++      status: status || 'todo',
++      updatedAt: new Date().toISOString()
++    }
++  });
++});
++
++app.delete('/api/tasks/:id', (req, res) => {
++  const { id } = req.params;
++  
++  // Mock task deletion
++  res.json({ message: 'Task deleted successfully', taskId: id });
++});
++
++app.patch('/api/tasks/:id/status', (req, res) => {
++  const { id } = req.params;
++  const { status } = req.body;
++  
++  // Simple validation
++  if (!status) {
++    return res.status(400).json({ message: 'Task status is required' });
++  }
++  
++  // Mock task status update
++  res.json({
++    task: {
++      id,
++      status,
++      updatedAt: new Date().toISOString()
++    }
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);
