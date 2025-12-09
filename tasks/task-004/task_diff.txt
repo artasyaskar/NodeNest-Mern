@@ -1,0 +1,134 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..42e30ed 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,129 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+ 
++// Dashboard analytics endpoints
++app.get('/api/dashboard/stats', (req, res) => {
++  // Mock overall dashboard statistics
++  res.json({
++    totalUsers: 150,
++    totalProjects: 45,
++    totalTasks: 230,
++    activeUsers: 89,
++    completedTasks: 178,
++    pendingTasks: 52,
++    totalRevenue: 12500,
++    monthlyGrowth: 12.5
++  });
++});
++
++app.get('/api/dashboard/projects/summary', (req, res) => {
++  // Mock projects summary data
++  res.json({
++    totalProjects: 45,
++    activeProjects: 32,
++    completedProjects: 8,
++    onHoldProjects: 5,
++    projectsByStatus: {
++      active: 32,
++      completed: 8,
++      onHold: 5,
++      archived: 0
++    },
++    averageCompletionTime: '15 days',
++    projectsThisMonth: 12
++  });
++});
++
++app.get('/api/dashboard/tasks/status', (req, res) => {
++  // Mock task status distribution
++  res.json({
++    totalTasks: 230,
++    tasksByStatus: {
++      todo: 52,
++      inProgress: 68,
++      review: 25,
++      completed: 85
++    },
++    tasksByPriority: {
++      high: 45,
++      medium: 120,
++      low: 65
++    },
++    overdueTasks: 8,
++    completedThisWeek: 23
++  });
++});
++
++app.get('/api/dashboard/users/activity', (req, res) => {
++  // Mock user activity metrics
++  res.json({
++    totalUsers: 150,
++    activeUsers: 89,
++    newUsersThisMonth: 18,
++    userEngagement: {
++      dailyActive: 45,
++      weeklyActive: 89,
++      monthlyActive: 134
++    },
++    topPerformers: [
++      { userId: '1', name: 'John Doe', tasksCompleted: 28 },
++      { userId: '2', name: 'Jane Smith', tasksCompleted: 24 }
++    ],
++    averageTasksPerUser: 4.2
++  });
++});
++
++app.get('/api/dashboard/recent/activities', (req, res) => {
++  // Mock recent activities timeline
++  res.json([
++    {
++      id: '1',
++      type: 'task_completed',
++      user: 'John Doe',
++      action: 'completed task "Update homepage"',
++      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
++      projectId: '1'
++    },
++    {
++      id: '2',
++      type: 'project_created',
++      user: 'Jane Smith',
++      action: 'created project "Mobile App"',
++      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      projectId: '2'
++    },
++    {
++      id: '3',
++      type: 'task_assigned',
++      user: 'Mike Johnson',
++      action: 'assigned task "Fix bug" to you',
++      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
++      projectId: '1'
++    }
++  ]);
++});
++
++app.get('/api/dashboard/performance/metrics', (req, res) => {
++  // Mock system performance metrics
++  res.json({
++    systemHealth: 'good',
++    responseTime: 120,
++    uptime: '99.9%',
++    errorRate: 0.02,
++    apiCalls: 15420,
++    serverLoad: 45,
++    memoryUsage: 68,
++    databaseConnections: 12,
++    cacheHitRate: 94.5,
++    metrics: {
++      avgResponseTime: 120,
++      peakResponseTime: 280,
++      requestsPerSecond: 45,
++      throughput: 1250
++    }
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);
