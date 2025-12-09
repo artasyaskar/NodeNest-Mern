@@ -1,0 +1,96 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..f95ea3e 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,91 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+
++// Notification system endpoints
++app.get('/api/notifications', (req, res) => {
++  // Mock user notifications
++  res.json([
++    {
++      id: '1',
++      type: 'task_assigned',
++      title: 'New Task Assigned',
++      message: 'You have been assigned to "Update homepage design"',
++      isRead: false,
++      createdAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
++      priority: 'medium'
++    },
++    {
++      id: '2',
++      type: 'project_update',
++      title: 'Project Update',
++      message: 'Project "Mobile App" status changed to active',
++      isRead: true,
++      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      priority: 'low'
++    }
++  ]);
++});
++
++app.post('/api/notifications', (req, res) => {
++  const { type, title, message, priority, userId } = req.body;
++
++  // Simple validation
++  if (!title || !message) {
++    return res.status(400).json({ message: 'Title and message are required' });
++  }
++
++  // Mock notification creation
++  res.status(201).json({
++    notification: {
++      id: '3',
++      type: type || 'system',
++      title,
++      message,
++      isRead: false,
++      priority: priority || 'medium',
++      userId: userId || '1',
++      createdAt: new Date().toISOString()
++    }
++  });
++});
++
++app.put('/api/notifications/:id/read', (req, res) => {
++  const { id } = req.params;
++
++  // Mock mark as read
++  res.json({
++    notification: {
++      id,
++      isRead: true,
++      readAt: new Date().toISOString()
++    }
++  });
++});
++
++app.delete('/api/notifications/:id', (req, res) => {
++  const { id } = req.params;
++
++  // Mock notification deletion
++  res.json({ message: 'Notification deleted successfully', notificationId: id });
++});
++
++app.get('/api/notifications/unread/count', (req, res) => {
++  // Mock unread count
++  res.json({
++    unreadCount: 5,
++    totalNotifications: 12
++  });
++});
++
++app.put('/api/notifications/mark-all-read', (req, res) => {
++  // Mock mark all as read
++  res.json({
++    message: 'All notifications marked as read',
++    markedCount: 5,
++    timestamp: new Date().toISOString()
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);
