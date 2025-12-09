@@ -1,0 +1,60 @@
+task_description: |
+  Task: Implement Basic Project Management API Endpoints
+
+  Instructions:
+  Add 6 fundamental project management endpoints to the Express.js server to support basic project operations.
+
+  1. Add POST /api/projects endpoint to create a new project
+  2. Add GET /api/projects endpoint to retrieve list of all projects
+  3. Add GET /api/projects/:id endpoint to retrieve specific project by ID
+  4. Add PUT /api/projects/:id endpoint to update specific project by ID
+  5. Add DELETE /api/projects/:id endpoint to delete project by ID
+  6. Add POST /api/projects/:id/tasks endpoint to add task to project
+
+  Background:
+  The NodeNest server currently has authentication endpoints and user management endpoints. The frontend application requires basic project management endpoints to enable users to create, manage, and organize projects with tasks.
+
+  Steps:
+  1. Add project management endpoints to server/app.js after the existing user routes
+  2. Implement mock data responses for each endpoint
+  3. Ensure proper JSON response formatting
+  4. Add basic parameter handling for ID-based endpoints
+  5. Place endpoints before the error handling middleware
+
+  Expected functionality:
+  - Create project endpoint should accept project data (name, description, etc.)
+  - Projects list endpoint should return array of project objects
+  - Project by ID endpoints should handle dynamic ID parameters
+  - Update endpoint should accept JSON payload with project data
+  - Delete endpoint should return success message
+  - Add task endpoint should associate task with project
+  - All endpoints should return proper JSON responses
+
+  Technical requirements:
+  - Use Express.js routing patterns
+  - Implement mock data responses (no database required)
+  - Handle route parameters for ID-based endpoints
+  - Accept JSON request bodies for POST/PUT endpoints
+  - Return consistent JSON response format
+  - Place routes before error handling middleware
+
+  Success criteria:
+  - All 6 project management endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper JSON responses
+  - Route parameters are handled correctly
+  - Server starts without errors
+  - All tests pass after implementation
+
+  Critical tested requirements:
+  - POST /api/projects endpoint exists in server code
+  - GET /api/projects endpoint exists in server code
+  - GET /api/projects/:id endpoint exists in server code
+  - PUT /api/projects/:id endpoint exists in server code
+  - DELETE /api/projects/:id endpoint exists in server code
+  - POST /api/projects/:id/tasks endpoint exists in server code
+
+difficulty: easy
+category: Feature
+tags: [project management, api endpoints, express, crud]
+parser_name: pytest
