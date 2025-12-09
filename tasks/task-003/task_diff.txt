@@ -5,16 +5,16 @@ index 15d4838..4185e41 100644
 @@ -54,6 +54,104 @@ app.post('/api/auth/login', (req, res) => {
    });
  });
- 
+
 +// Task management endpoints
 +app.post('/api/tasks', (req, res) => {
 +  const { title, description, projectId, status } = req.body;
-+  
++
 +  // Simple validation
 +  if (!title) {
 +    return res.status(400).json({ message: 'Task title is required' });
 +  }
-+  
++
 +  // Mock successful task creation
 +  res.status(201).json({
 +    task: {
@@ -46,7 +46,7 @@ index 15d4838..4185e41 100644
 +
 +app.get('/api/tasks/:id', (req, res) => {
 +  const { id } = req.params;
-+  
++
 +  // Mock task by ID
 +  res.json({
 +    task: {
@@ -64,7 +64,7 @@ index 15d4838..4185e41 100644
 +app.put('/api/tasks/:id', (req, res) => {
 +  const { id } = req.params;
 +  const { title, description, projectId, status } = req.body;
-+  
++
 +  // Mock task update
 +  res.json({
 +    task: {
@@ -80,7 +80,7 @@ index 15d4838..4185e41 100644
 +
 +app.delete('/api/tasks/:id', (req, res) => {
 +  const { id } = req.params;
-+  
++
 +  // Mock task deletion
 +  res.json({ message: 'Task deleted successfully', taskId: id });
 +});
@@ -88,12 +88,12 @@ index 15d4838..4185e41 100644
 +app.patch('/api/tasks/:id/status', (req, res) => {
 +  const { id } = req.params;
 +  const { status } = req.body;
-+  
++
 +  // Simple validation
 +  if (!status) {
 +    return res.status(400).json({ message: 'Task status is required' });
 +  }
-+  
++
 +  // Mock task status update
 +  res.json({
 +    task: {
