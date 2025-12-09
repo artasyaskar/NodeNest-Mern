@@ -5,16 +5,16 @@ index 13eb8be..63e1b31 100644
 @@ -54,6 +54,103 @@ app.post('/api/auth/login', (req, res) => {
    });
  });
- 
+
 +// Project management endpoints
 +app.post('/api/projects', (req, res) => {
 +  const { name, description, status } = req.body;
-+  
++
 +  // Simple validation
 +  if (!name) {
 +    return res.status(400).json({ message: 'Project name is required' });
 +  }
-+  
++
 +  // Mock successful project creation
 +  res.status(201).json({
 +    project: {
@@ -44,7 +44,7 @@ index 13eb8be..63e1b31 100644
 +
 +app.get('/api/projects/:id', (req, res) => {
 +  const { id } = req.params;
-+  
++
 +  // Mock project by ID
 +  res.json({
 +    project: {
@@ -61,7 +61,7 @@ index 13eb8be..63e1b31 100644
 +app.put('/api/projects/:id', (req, res) => {
 +  const { id } = req.params;
 +  const { name, description, status } = req.body;
-+  
++
 +  // Mock project update
 +  res.json({
 +    project: {
@@ -76,7 +76,7 @@ index 13eb8be..63e1b31 100644
 +
 +app.delete('/api/projects/:id', (req, res) => {
 +  const { id } = req.params;
-+  
++
 +  // Mock project deletion
 +  res.json({ message: 'Project deleted successfully', projectId: id });
 +});
@@ -84,12 +84,12 @@ index 13eb8be..63e1b31 100644
 +app.post('/api/projects/:id/tasks', (req, res) => {
 +  const { id } = req.params;
 +  const { title, description, status } = req.body;
-+  
++
 +  // Simple validation
 +  if (!title) {
 +    return res.status(400).json({ message: 'Task title is required' });
 +  }
-+  
++
 +  // Mock task addition to project
 +  res.status(201).json({
 +    task: {
