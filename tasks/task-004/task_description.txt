@@ -1,0 +1,60 @@
+task_description: |
+  Task: Implement Dashboard Analytics API Endpoints
+
+  Instructions:
+  Add 6 fundamental dashboard analytics endpoints to the Express.js server to support dashboard data visualization and statistics.
+
+  1. Add GET /api/dashboard/stats endpoint to retrieve overall dashboard statistics
+  2. Add GET /api/dashboard/projects/summary endpoint to get projects summary data
+  3. Add GET /api/dashboard/tasks/status endpoint to get task status distribution
+  4. Add GET /api/dashboard/users/activity endpoint to get user activity metrics
+  5. Add GET /api/dashboard/recent/activities endpoint to get recent activities
+  6. Add GET /api/dashboard/performance/metrics endpoint to get performance metrics
+
+  Background:
+  The NodeNest server currently has authentication, user management, project management, and task management endpoints. The frontend dashboard components require analytics endpoints to display meaningful statistics, charts, and activity feeds for better user experience and data insights.
+
+  Steps:
+  1. Add dashboard analytics endpoints to server/app.js after the existing task routes
+  2. Implement mock analytics data responses for each endpoint
+  3. Ensure proper JSON response formatting with realistic mock data
+  4. Add basic parameter handling for date ranges or filters
+  5. Place endpoints before the error handling middleware
+
+  Expected functionality:
+  - Stats endpoint should return overall counts and key metrics
+  - Projects summary should return project statistics and progress data
+  - Task status endpoint should return task distribution by status
+  - User activity endpoint should return user engagement metrics
+  - Recent activities endpoint should return timeline of recent actions
+  - Performance metrics endpoint should return system/app performance data
+  - All endpoints should return properly structured analytics data
+
+  Technical requirements:
+  - Use Express.js routing patterns
+  - Implement mock analytics data responses (no database required)
+  - Return structured data suitable for charts and visualizations
+  - Handle optional query parameters for filtering
+  - Return consistent JSON response format
+  - Place routes before error handling middleware
+
+  Success criteria:
+  - All 6 dashboard analytics endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper analytics data structure
+  - Mock data is realistic and suitable for dashboard components
+  - Server starts without errors
+  - All tests pass after implementation
+
+  Critical tested requirements:
+  - GET /api/dashboard/stats endpoint exists in server code
+  - GET /api/dashboard/projects/summary endpoint exists in server code
+  - GET /api/dashboard/tasks/status endpoint exists in server code
+  - GET /api/dashboard/users/activity endpoint exists in server code
+  - GET /api/dashboard/recent/activities endpoint exists in server code
+  - GET /api/dashboard/performance/metrics endpoint exists in server code
+
+difficulty: easy
+category: Feature
+tags: [dashboard, analytics, api endpoints, express, metrics]
+parser_name: pytest
