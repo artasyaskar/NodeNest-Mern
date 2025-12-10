@@ -1,0 +1,197 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..28885bc 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,192 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+
++// Comments and discussion endpoints
++app.get('/api/comments', (req, res) => {
++  const { page = 1, limit = 10, resourceId } = req.query;
++
++  // Mock comments list
++  res.json([
++    {
++      id: '1',
++      content: 'Great work on this project!',
++      author: {
++        id: '1',
++        name: 'John Doe',
++        avatar: 'https://example.com/avatar1.jpg'
++      },
++      resourceId: 'project_1',
++      resourceType: 'project',
++      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      replies: [
++        {
++          id: '2',
++          content: 'Thank you! I appreciate the feedback.',
++          author: {
++            id: '2',
++            name: 'Jane Smith',
++            avatar: 'https://example.com/avatar2.jpg'
++          },
++          createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
++          updatedAt: new Date(Date.now() - 1000 * 60 * 60).toISOString()
++        }
++      ]
++    },
++    {
++      id: '3',
++      content: 'I think we should consider adding more tests.',
++      author: {
++        id: '3',
++        name: 'Mike Johnson',
++        avatar: 'https://example.com/avatar3.jpg'
++      },
++      resourceId: 'task_1',
++      resourceType: 'task',
++      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
++      updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
++      replies: []
++    }
++  ]);
++});
++
++app.post('/api/comments', (req, res) => {
++  const { content, resourceId, resourceType, authorId } = req.body;
++
++  // Simple validation
++  if (!content || !resourceId || !resourceType || !authorId) {
++    return res.status(400).json({ message: 'Content, resourceId, resourceType, and authorId are required' });
++  }
++
++  // Mock comment creation
++  res.status(201).json({
++    comment: {
++      id: '4',
++      content,
++      author: {
++        id: authorId,
++        name: 'Current User',
++        avatar: 'https://example.com/avatar_current.jpg'
++      },
++      resourceId,
++      resourceType,
++      createdAt: new Date().toISOString(),
++      updatedAt: new Date().toISOString(),
++      replies: []
++    }
++  });
++});
++
++app.get('/api/comments/:id', (req, res) => {
++  const { id } = req.params;
++
++  // Mock comment by ID
++  res.json({
++    comment: {
++      id,
++      content: 'Great work on this project!',
++      author: {
++        id: '1',
++        name: 'John Doe',
++        avatar: 'https://example.com/avatar1.jpg'
++      },
++      resourceId: 'project_1',
++      resourceType: 'project',
++      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      replies: [
++        {
++          id: '2',
++          content: 'Thank you! I appreciate the feedback.',
++          author: {
++            id: '2',
++            name: 'Jane Smith',
++            avatar: 'https://example.com/avatar2.jpg'
++          },
++          createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
++          updatedAt: new Date(Date.now() - 1000 * 60 * 60).toISOString()
++        }
++      ]
++    }
++  });
++});
++
++app.put('/api/comments/:id', (req, res) => {
++  const { id } = req.params;
++  const { content } = req.body;
++
++  // Simple validation
++  if (!content) {
++    return res.status(400).json({ message: 'Content is required' });
++  }
++
++  // Mock comment update
++  res.json({
++    comment: {
++      id,
++      content,
++      author: {
++        id: '1',
++        name: 'John Doe',
++        avatar: 'https://example.com/avatar1.jpg'
++      },
++      resourceId: 'project_1',
++      resourceType: 'project',
++      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      updatedAt: new Date().toISOString(),
++      replies: []
++    }
++  });
++});
++
++app.delete('/api/comments/:id', (req, res) => {
++  const { id } = req.params;
++
++  // Mock comment deletion
++  res.json({ message: 'Comment deleted successfully', commentId: id });
++});
++
++app.get('/api/comments/resource/:resourceId', (req, res) => {
++  const { resourceId } = req.params;
++  const { page = 1, limit = 10 } = req.query;
++
++  // Mock comments for specific resource
++  res.json({
++    resourceId,
++    comments: [
++      {
++        id: '1',
++        content: 'Great work on this project!',
++        author: {
++          id: '1',
++          name: 'John Doe',
++          avatar: 'https://example.com/avatar1.jpg'
++        },
++        resourceId,
++        resourceType: 'project',
++        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++        updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++        replies: [
++          {
++            id: '2',
++            content: 'Thank you! I appreciate the feedback.',
++            author: {
++              id: '2',
++              name: 'Jane Smith',
++              avatar: 'https://example.com/avatar2.jpg'
++            },
++            createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
++            updatedAt: new Date(Date.now() - 1000 * 60 * 60).toISOString()
++          }
++        ]
++      }
++    ],
++    total: 1,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);
