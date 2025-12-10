@@ -1,0 +1,252 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..f9e1368 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,247 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+
++// Activity log and audit trail endpoints
++app.get('/api/activities', (req, res) => {
++  const { page = 1, limit = 10, action, userId, resourceType } = req.query;
++
++  // Mock activities list
++  res.json([
++    {
++      id: '1',
++      action: 'user_login',
++      user: {
++        id: '1',
++        name: 'John Doe',
++        email: 'john@example.com'
++      },
++      resource: null,
++      description: 'User logged in',
++      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
++      ipAddress: '192.168.1.100',
++      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
++    },
++    {
++      id: '2',
++      action: 'project_created',
++      user: {
++        id: '1',
++        name: 'John Doe',
++        email: 'john@example.com'
++      },
++      resource: {
++        type: 'project',
++        id: '1',
++        name: 'Mobile App Development'
++      },
++      description: 'Created new project "Mobile App Development"',
++      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      ipAddress: '192.168.1.100',
++      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
++    },
++    {
++      id: '3',
++      action: 'task_updated',
++      user: {
++        id: '2',
++        name: 'Jane Smith',
++        email: 'jane@example.com'
++      },
++      resource: {
++        type: 'task',
++        id: '1',
++        name: 'Update homepage design'
++      },
++      description: 'Updated task status to "in_progress"',
++      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
++      ipAddress: '192.168.1.101',
++      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
++    }
++  ]);
++});
++
++app.post('/api/activities', (req, res) => {
++  const { action, userId, resource, description, metadata } = req.body;
++
++  // Simple validation
++  if (!action || !userId) {
++    return res.status(400).json({ message: 'Action and userId are required' });
++  }
++
++  // Mock activity logging
++  res.status(201).json({
++    activity: {
++      id: '4',
++      action,
++      user: {
++        id: userId,
++        name: 'Current User',
++        email: 'current@example.com'
++      },
++      resource: resource || null,
++      description: description || `${action} performed`,
++      timestamp: new Date().toISOString(),
++      ipAddress: req.ip || '127.0.0.1',
++      userAgent: req.get('User-Agent') || 'Unknown',
++      metadata: metadata || {}
++    }
++  });
++});
++
++app.get('/api/activities/user/:userId', (req, res) => {
++  const { userId } = req.params;
++  const { page = 1, limit = 10, action } = req.query;
++
++  // Mock user activities
++  res.json({
++    userId,
++    activities: [
++      {
++        id: '1',
++        action: 'user_login',
++        user: {
++          id: userId,
++          name: 'John Doe',
++          email: 'john@example.com'
++        },
++        resource: null,
++        description: 'User logged in',
++        timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
++        ipAddress: '192.168.1.100'
++      },
++      {
++        id: '2',
++        action: 'project_created',
++        user: {
++          id: userId,
++          name: 'John Doe',
++          email: 'john@example.com'
++        },
++        resource: {
++          type: 'project',
++          id: '1',
++          name: 'Mobile App Development'
++        },
++        description: 'Created new project "Mobile App Development"',
++        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++        ipAddress: '192.168.1.100'
++      }
++    ],
++    total: 2,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/activities/resource/:resourceType/:resourceId', (req, res) => {
++  const { resourceType, resourceId } = req.params;
++  const { page = 1, limit = 10 } = req.query;
++
++  // Mock resource activities
++  res.json({
++    resourceType,
++    resourceId,
++    activities: [
++      {
++        id: '2',
++        action: 'project_created',
++        user: {
++          id: '1',
++          name: 'John Doe',
++          email: 'john@example.com'
++        },
++        resource: {
++          type: resourceType,
++          id: resourceId,
++          name: 'Mobile App Development'
++        },
++        description: 'Created new project "Mobile App Development"',
++        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++        ipAddress: '192.168.1.100'
++      },
++      {
++        id: '5',
++        action: 'project_updated',
++        user: {
++          id: '2',
++          name: 'Jane Smith',
++          email: 'jane@example.com'
++        },
++        resource: {
++          type: resourceType,
++          id: resourceId,
++          name: 'Mobile App Development'
++        },
++        description: 'Updated project status to "active"',
++        timestamp: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
++        ipAddress: '192.168.1.101'
++      }
++    ],
++    total: 2,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/activities/export', (req, res) => {
++  const { format = 'json', startDate, endDate, action } = req.query;
++
++  // Mock export data
++  const exportData = [
++    {
++      id: '1',
++      action: 'user_login',
++      user: 'John Doe',
++      resource: null,
++      description: 'User logged in',
++      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
++      ipAddress: '192.168.1.100'
++    },
++    {
++      id: '2',
++      action: 'project_created',
++      user: 'John Doe',
++      resource: 'Mobile App Development',
++      description: 'Created new project "Mobile App Development"',
++      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
++      ipAddress: '192.168.1.100'
++    }
++  ];
++
++  if (format === 'csv') {
++    res.setHeader('Content-Type', 'text/csv');
++    res.setHeader('Content-Disposition', 'attachment; filename=activities.csv');
++    const csvHeader = 'ID,Action,User,Resource,Description,Timestamp,IP Address\n';
++    const csvData = exportData.map(a =>
++      `${a.id},${a.action},${a.user},${a.resource},"${a.description}",${a.timestamp},${a.ipAddress}`
++    ).join('\n');
++    res.send(csvHeader + csvData);
++  } else {
++    res.json({
++      format,
++      exportData,
++      exportedAt: new Date().toISOString(),
++      totalRecords: exportData.length
++    });
++  }
++});
++
++app.delete('/api/activities/cleanup', (req, res) => {
++  const { olderThan, keepCount } = req.query;
++
++  // Mock cleanup operation
++  res.json({
++    message: 'Activities cleanup completed',
++    criteria: {
++      olderThan: olderThan || '90 days',
++      keepCount: keepCount ? parseInt(keepCount) : null
++    },
++    deletedCount: 156,
++    remainingCount: 1244,
++    cleanupDate: new Date().toISOString()
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);

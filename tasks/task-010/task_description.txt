@@ -1,0 +1,62 @@
+task_description: |
+  Task: Implement Activity Log and Audit Trail API Endpoints
+
+  Instructions:
+  Add 6 fundamental activity log and audit trail endpoints to the Express.js server to support tracking user activities and system events.
+
+  1. Add GET /api/activities endpoint to retrieve list of all activities
+  2. Add POST /api/activities endpoint to log a new activity
+  3. Add GET /api/activities/user/:userId endpoint to get activities for specific user
+  4. Add GET /api/activities/resource/:resourceType/:resourceId endpoint to get activities for specific resource
+  5. Add GET /api/activities/export endpoint to export activity log
+  6. Add DELETE /api/activities/cleanup endpoint to clean old activities
+
+  Background:
+  The NodeNest server currently has authentication, user management, project management, task management, dashboard analytics, notification system, file management, search, comments, and tags endpoints. The frontend application requires activity log and audit trail endpoints to track user actions, system events, and provide comprehensive audit capabilities.
+
+  Steps:
+  1. Add activity log and audit trail endpoints to server/app.js after the existing tags routes
+  2. Implement mock activity data responses for each endpoint
+  3. Ensure proper JSON response formatting with activity metadata
+  4. Add basic parameter handling for ID-based endpoints
+  5. Place endpoints before the error handling middleware
+
+  Expected functionality:
+  - Get activities endpoint should return paginated list of activities with filters
+  - Log activity endpoint should accept activity data with action, user, resource
+  - User activities endpoint should return activities for specific user
+  - Resource activities endpoint should return activities for specific resource
+  - Export endpoint should return activities in exportable format
+  - Cleanup endpoint should remove old activities based on criteria
+  - All endpoints should return proper JSON responses with timestamps
+
+  Technical requirements:
+  - Use Express.js routing patterns
+  - Implement mock activity data responses (no database required)
+  - Handle route parameters for ID-based endpoints
+  - Accept JSON request bodies for POST endpoints
+  - Return consistent JSON response format
+  - Include proper timestamps and user information
+  - Support filtering and pagination
+  - Place routes before error handling middleware
+
+  Success criteria:
+  - All 6 activity log and audit trail endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper activity data structure
+  - Mock data includes realistic activity types and user actions
+  - Server starts without errors
+  - All tests pass after implementation
+
+  Critical tested requirements:
+  - GET /api/activities endpoint exists in server code
+  - POST /api/activities endpoint exists in server code
+  - GET /api/activities/user/:userId endpoint exists in server code
+  - GET /api/activities/resource/:resourceType/:resourceId endpoint exists in server code
+  - GET /api/activities/export endpoint exists in server code
+  - DELETE /api/activities/cleanup endpoint exists in server code
+
+difficulty: easy
+category: Feature
+tags: [activity, audit, logging, api endpoints, express, tracking]
+parser_name: pytest
