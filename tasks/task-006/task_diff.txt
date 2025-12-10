@@ -1,0 +1,115 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..3097a18 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,110 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+
++// File management endpoints
++app.post('/api/files/upload', (req, res) => {
++  const { filename, filetype, filesize, content } = req.body;
++
++  // Simple validation
++  if (!filename || !filetype) {
++    return res.status(400).json({ message: 'Filename and filetype are required' });
++  }
++
++  // Mock file upload
++  res.status(201).json({
++    file: {
++      id: '1',
++      filename,
++      filetype,
++      filesize: filesize || 1024,
++      uploadedAt: new Date().toISOString(),
++      userId: '1',
++      downloadUrl: `/api/files/1/download`
++    }
++  });
++});
++
++app.get('/api/files', (req, res) => {
++  // Mock user files list
++  res.json([
++    {
++      id: '1',
++      filename: 'document.pdf',
++      filetype: 'application/pdf',
++      filesize: 2048576,
++      uploadedAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
++      userId: '1',
++      downloadUrl: '/api/files/1/download'
++    },
++    {
++      id: '2',
++      filename: 'image.jpg',
++      filetype: 'image/jpeg',
++      filesize: 1024576,
++      uploadedAt: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
++      userId: '1',
++      downloadUrl: '/api/files/2/download'
++    }
++  ]);
++});
++
++app.get('/api/files/:id', (req, res) => {
++  const { id } = req.params;
++
++  // Mock file metadata
++  res.json({
++    file: {
++      id,
++      filename: 'document.pdf',
++      filetype: 'application/pdf',
++      filesize: 2048576,
++      uploadedAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
++      userId: '1',
++      downloadUrl: `/api/files/${id}/download`,
++      description: 'Important project document'
++    }
++  });
++});
++
++app.get('/api/files/:id/download', (req, res) => {
++  const { id } = req.params;
++
++  // Mock file download (return download URL info)
++  res.json({
++    downloadUrl: `/api/files/${id}/download`,
++    filename: 'document.pdf',
++    filetype: 'application/pdf',
++    filesize: 2048576,
++    expiresAt: new Date(Date.now() + 1000 * 60 * 60).toISOString()
++  });
++});
++
++app.delete('/api/files/:id', (req, res) => {
++  const { id } = req.params;
++
++  // Mock file deletion
++  res.json({ message: 'File deleted successfully', fileId: id });
++});
++
++app.put('/api/files/:id/rename', (req, res) => {
++  const { id } = req.params;
++  const { newFilename } = req.body;
++
++  // Simple validation
++  if (!newFilename) {
++    return res.status(400).json({ message: 'New filename is required' });
++  }
++
++  // Mock file rename
++  res.json({
++    file: {
++      id,
++      filename: newFilename,
++      renamedAt: new Date().toISOString()
++    }
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);

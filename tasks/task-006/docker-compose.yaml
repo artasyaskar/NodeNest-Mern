@@ -3,8 +3,8 @@ services:
     build:
       context: ../..
       dockerfile: Dockerfile
-    image: mern-training-base:task-005
-    command: ["./tasks/task-005/run-tests.sh"]
+    image: mern-training-base:task-006
+    command: ["./tasks/task-006/run-tests.sh"]
     volumes:
       - ../..:/app
     working_dir: /app
