@@ -1,0 +1,61 @@
+task_description: |
+  Task: Implement Tags and Labels API Endpoints
+
+  Instructions:
+  Add 6 fundamental tags and labels endpoints to the Express.js server to support tagging functionality for projects, tasks, and other resources.
+
+  1. Add GET /api/tags endpoint to retrieve list of all tags
+  2. Add POST /api/tags endpoint to create a new tag
+  3. Add GET /api/tags/:id endpoint to retrieve specific tag by ID
+  4. Add PUT /api/tags/:id endpoint to update specific tag by ID
+  5. Add DELETE /api/tags/:id endpoint to delete tag by ID
+  6. Add GET /api/tags/popular endpoint to get most popular tags
+
+  Background:
+  The NodeNest server currently has authentication, user management, project management, task management, dashboard analytics, notification system, file management, search, and comments endpoints. The frontend application requires tags and labels endpoints to enable categorization, organization, and filtering of resources through a flexible tagging system.
+
+  Steps:
+  1. Add tags and labels endpoints to server/app.js after the existing comments routes
+  2. Implement mock tag data responses for each endpoint
+  3. Ensure proper JSON response formatting with tag metadata
+  4. Add basic parameter handling for ID-based endpoints
+  5. Place endpoints before the error handling middleware
+
+  Expected functionality:
+  - Get tags endpoint should return all available tags with usage counts
+  - Create tag endpoint should accept tag data with name, color, description
+  - Get tag by ID endpoint should return detailed tag information
+  - Update tag endpoint should accept JSON payload with tag data
+  - Delete tag endpoint should return success message
+  - Popular tags endpoint should return most frequently used tags
+  - All endpoints should return proper JSON responses with usage statistics
+
+  Technical requirements:
+  - Use Express.js routing patterns
+  - Implement mock tag data responses (no database required)
+  - Handle route parameters for ID-based endpoints
+  - Accept JSON request bodies for POST/PUT endpoints
+  - Return consistent JSON response format
+  - Include proper color codes and usage statistics
+  - Place routes before error handling middleware
+
+  Success criteria:
+  - All 6 tags and labels endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper tag data structure
+  - Mock data includes realistic tag names, colors, and usage counts
+  - Server starts without errors
+  - All tests pass after implementation
+
+  Critical tested requirements:
+  - GET /api/tags endpoint exists in server code
+  - POST /api/tags endpoint exists in server code
+  - GET /api/tags/:id endpoint exists in server code
+  - PUT /api/tags/:id endpoint exists in server code
+  - DELETE /api/tags/:id endpoint exists in server code
+  - GET /api/tags/popular endpoint exists in server code
+
+difficulty: easy
+category: Feature
+tags: [tags, labels, api endpoints, express, categorization]
+parser_name: pytest
