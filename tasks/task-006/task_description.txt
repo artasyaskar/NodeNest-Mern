@@ -1,0 +1,61 @@
+task_description: |
+  Task: Implement File Management API Endpoints
+
+  Instructions:
+  Add 6 fundamental file management endpoints to the Express.js server to support file uploads, downloads, and file operations.
+
+  1. Add POST /api/files/upload endpoint to handle file uploads
+  2. Add GET /api/files endpoint to retrieve list of user files
+  3. Add GET /api/files/:id endpoint to get file metadata
+  4. Add GET /api/files/:id/download endpoint to download file
+  5. Add DELETE /api/files/:id endpoint to delete file
+  6. Add PUT /api/files/:id/rename endpoint to rename file
+
+  Background:
+  The NodeNest server currently has authentication, user management, project management, task management, dashboard analytics, and notification system endpoints. The frontend application requires file management endpoints to handle document uploads, file sharing, and attachment management for projects and tasks.
+
+  Steps:
+  1. Add file management endpoints to server/app.js after the existing notification routes
+  2. Implement mock file data responses for each endpoint
+  3. Ensure proper JSON response formatting with file metadata
+  4. Add basic parameter handling for ID-based endpoints
+  5. Place endpoints before the error handling middleware
+
+  Expected functionality:
+  - Upload endpoint should accept file data and return file information
+  - Files list endpoint should return array of user files with metadata
+  - File metadata endpoint should return detailed file information
+  - Download endpoint should return file download URL or base64 data
+  - Delete endpoint should remove file and return success message
+  - Rename endpoint should update file name and return updated metadata
+  - All endpoints should return proper JSON responses with file details
+
+  Technical requirements:
+  - Use Express.js routing patterns
+  - Implement mock file data responses (no actual file storage required)
+  - Handle route parameters for ID-based endpoints
+  - Accept JSON request bodies for POST/PUT endpoints
+  - Return consistent JSON response format
+  - Include proper file metadata (size, type, timestamps)
+  - Place routes before error handling middleware
+
+  Success criteria:
+  - All 6 file management endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper file data structure
+  - Mock data includes realistic file types and metadata
+  - Server starts without errors
+  - All tests pass after implementation
+
+  Critical tested requirements:
+  - POST /api/files/upload endpoint exists in server code
+  - GET /api/files endpoint exists in server code
+  - GET /api/files/:id endpoint exists in server code
+  - GET /api/files/:id/download endpoint exists in server code
+  - DELETE /api/files/:id endpoint exists in server code
+  - PUT /api/files/:id/rename endpoint exists in server code
+
+difficulty: easy
+category: Feature
+tags: [file management, uploads, downloads, api endpoints, express]
+parser_name: pytest
