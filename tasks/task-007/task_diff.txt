@@ -1,0 +1,200 @@
+diff --git a/server/app.js b/server/app.js
+index 15d4838..e5581a3 100644
+--- a/server/app.js
++++ b/server/app.js
+@@ -54,6 +54,195 @@ app.post('/api/auth/login', (req, res) => {
+   });
+ });
+
++// Search and filtering endpoints
++app.get('/api/search/global', (req, res) => {
++  const { q, type, page = 1, limit = 10 } = req.query;
++
++  // Mock global search results
++  res.json({
++    query: q || '',
++    results: [
++      {
++        type: 'project',
++        id: '1',
++        title: 'Mobile App Development',
++        description: 'A comprehensive mobile application',
++        relevance: 0.95
++      },
++      {
++        type: 'task',
++        id: '1',
++        title: 'Update homepage design',
++        description: 'Redesign the main landing page',
++        relevance: 0.87
++      },
++      {
++        type: 'user',
++        id: '1',
++        title: 'John Doe',
++        description: 'Senior Developer',
++        relevance: 0.78
++      }
++    ],
++    total: 3,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/search/projects', (req, res) => {
++  const { q, status, page = 1, limit = 10 } = req.query;
++
++  // Mock project search results
++  res.json({
++    query: q || '',
++    filters: { status },
++    results: [
++      {
++        id: '1',
++        name: 'Mobile App Development',
++        description: 'A comprehensive mobile application',
++        status: 'active',
++        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString()
++      },
++      {
++        id: '2',
++        name: 'Website Redesign',
++        description: 'Complete overhaul of company website',
++        status: 'planning',
++        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString()
++      }
++    ],
++    total: 2,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/search/tasks', (req, res) => {
++  const { q, status, assignee, priority, page = 1, limit = 10 } = req.query;
++
++  // Mock task search results
++  res.json({
++    query: q || '',
++    filters: { status, assignee, priority },
++    results: [
++      {
++        id: '1',
++        title: 'Update homepage design',
++        description: 'Redesign the main landing page',
++        status: 'in_progress',
++        assignee: 'John Doe',
++        priority: 'high',
++        projectId: '1'
++      },
++      {
++        id: '2',
++        title: 'Fix navigation bug',
++        description: 'Resolve menu navigation issues',
++        status: 'todo',
++        assignee: 'Jane Smith',
++        priority: 'medium',
++        projectId: '1'
++      }
++    ],
++    total: 2,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/search/users', (req, res) => {
++  const { q, role, department, page = 1, limit = 10 } = req.query;
++
++  // Mock user search results
++  res.json({
++    query: q || '',
++    filters: { role, department },
++    results: [
++      {
++        id: '1',
++        username: 'johndoe',
++        firstName: 'John',
++        lastName: 'Doe',
++        email: 'john@example.com',
++        role: 'developer',
++        department: 'engineering'
++      },
++      {
++        id: '2',
++        username: 'janesmith',
++        firstName: 'Jane',
++        lastName: 'Smith',
++        email: 'jane@example.com',
++        role: 'designer',
++        department: 'design'
++      }
++    ],
++    total: 2,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/search/files', (req, res) => {
++  const { q, filetype, uploadedBy, page = 1, limit = 10 } = req.query;
++
++  // Mock file search results
++  res.json({
++    query: q || '',
++    filters: { filetype, uploadedBy },
++    results: [
++      {
++        id: '1',
++        filename: 'project_requirements.pdf',
++        filetype: 'application/pdf',
++        filesize: 1024576,
++        uploadedBy: 'John Doe',
++        uploadedAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString()
++      },
++      {
++        id: '2',
++        filename: 'mockup_design.fig',
++        filetype: 'application/figma',
++        filesize: 2048576,
++        uploadedBy: 'Jane Smith',
++        uploadedAt: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString()
++      }
++    ],
++    total: 2,
++    page: parseInt(page),
++    limit: parseInt(limit)
++  });
++});
++
++app.get('/api/search/suggestions', (req, res) => {
++  const { q, type } = req.query;
++
++  // Mock search suggestions/autocomplete
++  res.json({
++    query: q || '',
++    type: type || 'all',
++    suggestions: [
++      {
++        text: 'Mobile App Development',
++        type: 'project',
++        count: 1
++      },
++      {
++        text: 'Mobile App Testing',
++        type: 'task',
++        count: 3
++      },
++      {
++        text: 'Mobile Design Guidelines',
++        type: 'file',
++        count: 2
++      }
++    ]
++  });
++});
++
+ // Basic error handling
+ app.use((err, req, res, next) => {
+   console.error(err.stack);

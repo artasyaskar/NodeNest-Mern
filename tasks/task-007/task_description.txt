@@ -1,0 +1,61 @@
+task_description: |
+  Task: Implement Search and Filtering API Endpoints
+
+  Instructions:
+  Add 6 fundamental search and filtering endpoints to the Express.js server to support search functionality across different resources.
+
+  1. Add GET /api/search/global endpoint to perform global search across all resources
+  2. Add GET /api/search/projects endpoint to search and filter projects
+  3. Add GET /api/search/tasks endpoint to search and filter tasks
+  4. Add GET /api/search/users endpoint to search and filter users
+  5. Add GET /api/search/files endpoint to search and filter files
+  6. Add GET /api/search/suggestions endpoint to get search suggestions/autocomplete
+
+  Background:
+  The NodeNest server currently has authentication, user management, project management, task management, dashboard analytics, notification system, and file management endpoints. The frontend application requires search and filtering endpoints to enable users to quickly find relevant information across projects, tasks, users, and files.
+
+  Steps:
+  1. Add search and filtering endpoints to server/app.js after the existing file management routes
+  2. Implement mock search data responses for each endpoint
+  3. Ensure proper JSON response formatting with search results
+  4. Add basic parameter handling for search queries and filters
+  5. Place endpoints before the error handling middleware
+
+  Expected functionality:
+  - Global search endpoint should search across all resource types
+  - Projects search should filter projects by name, description, status
+  - Tasks search should filter tasks by title, description, status, assignee
+  - Users search should filter users by name, email, role
+  - Files search should filter files by filename, type, content
+  - Suggestions endpoint should return autocomplete suggestions
+  - All endpoints should handle query parameters for filtering
+
+  Technical requirements:
+  - Use Express.js routing patterns
+  - Implement mock search responses (no database required)
+  - Handle query parameters for search terms and filters
+  - Return structured search results with metadata
+  - Support pagination and sorting parameters
+  - Return consistent JSON response format
+  - Place routes before error handling middleware
+
+  Success criteria:
+  - All 6 search and filtering endpoints are implemented
+  - Tests verify endpoint existence in server code
+  - Each endpoint returns proper search results structure
+  - Mock data includes realistic search results and metadata
+  - Server starts without errors
+  - All tests pass after implementation
+
+  Critical tested requirements:
+  - GET /api/search/global endpoint exists in server code
+  - GET /api/search/projects endpoint exists in server code
+  - GET /api/search/tasks endpoint exists in server code
+  - GET /api/search/users endpoint exists in server code
+  - GET /api/search/files endpoint exists in server code
+  - GET /api/search/suggestions endpoint exists in server code
+
+difficulty: easy
+category: Feature
+tags: [search, filtering, api endpoints, express, autocomplete]
+parser_name: pytest
