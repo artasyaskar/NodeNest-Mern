@@ -1,11 +1,11 @@
 diff --git a/server/app.js b/server/app.js
-index 13eb8be..711d098 100644
+index 15d4838..bf17a36 100644
 --- a/server/app.js
 +++ b/server/app.js
 @@ -54,6 +54,75 @@ app.post('/api/auth/login', (req, res) => {
    });
  });
- 
+
 +// User management endpoints
 +app.get('/api/users/profile', (req, res) => {
 +  res.json({
